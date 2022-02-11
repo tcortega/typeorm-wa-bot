@@ -5,16 +5,35 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "typeorm": "npx ts-node ./node_modules/typeorm/cli.js"
+    "typeorm": "npx ts-node ./node_modules/typeorm/cli.js",
+    "start": "ts-node src/index.ts"
   },
   "devDependencies": {
+    "@open-wa/wa-automate-types-only": "^4.29.0",
+    "@types/adm-zip": "^0.4.34",
+    "@types/axios": "^0.14.0",
+    "@types/node": "^16.11.21",
+    "@types/tough-cookie": "^4.0.1",
+    "copyfiles": "^2.4.1",
+    "mime": "^3.0.0",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@types/node": "^16.11.9",
+    "@open-wa/wa-automate": "^4.25.0",
+    "@tcortega/node-html-to-image": "^3.2.2",
+    "@tcortega/twitter-scraper": "^0.2.4",
+    "adm-zip": "^0.5.9",
+    "axios": "^0.24.0",
+    "axios-cookiejar-support": "^2.0.3",
+    "date-fns": "^2.28.0",
+    "form-data": "^4.0.0",
+    "fs": "^0.0.1-security",
+    "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
-    "sqlite3": "^5.0.2",
-    "typeorm": "^0.2.41"
+    "tough-cookie": "^4.0.0",
+    "typeorm": "^0.2.41",
+    "winston": "^3.4.0",
+    "yarn": "^1.22.17"
   }
 }

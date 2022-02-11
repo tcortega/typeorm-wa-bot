@@ -1,0 +1,208 @@
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: #2a2a2a;
+            font-family: "Lato", sans-serif;
+            font-family: "Nunito Sans", sans-serif;
+            color: white;
+            width: 580px;
+            height: 170px;
+        }
+
+        .player-card {
+            /* background-color: #2a2a2a; */
+            border-radius: 15px;
+            padding: 5px 15px;
+            box-shadow: 0px 0px 20px black;
+            width: fit-content;
+            /* margin: auto; */
+            margin-left: 16px;
+            /* margin-bottom: 20px; */
+            /* margin-top: 10px; */
+        }
+
+        .rank-icon {
+            width: 80px;
+            /* ratio: 1; */
+        }
+
+        .player-picture {
+            width: 90px;
+            border-radius: 7.5px;
+            box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.25);
+        }
+
+        .progress {
+            padding: 4px;
+            width: 60%;
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 6px;
+        }
+
+        .progress-bar {
+            height: 16px;
+            width: 50%;
+            border-radius: 4px;
+            background-color: gray;
+            position: relative;
+            /* transition: width 0.4s linear; */
+        }
+
+        td {
+            padding: 15px;
+        }
+
+        .player-info {
+            width: 250px;
+        }
+
+        .player-name {
+            font-size: 1.5em;
+        }
+
+        .loss-gain {
+            position: absolute;
+            height: 16px;
+            /* width: {ChangePercentage}%; */
+            right: 0;
+            /* background-color: var(--change-color); */
+            border-radius: 4px;
+        }
+
+        .tag {
+            color: #f0f0f0;
+            font-size: 0.75em;
+            opacity: 0.8;
+        }
+
+        .rating-container {
+            width: 20%;
+            box-sizing: border-box;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            align-content: center;
+        }
+
+        .smaller {
+            font-size: 0.75em;
+        }
+
+        .rank-display {
+            position: relative;
+        }
+
+        .rank-name {
+            font-weight: bold;
+            display: block;
+            border-radius: 5px;
+            background-color: rgba(64, 64, 64, 0.8);
+            box-shadow: 0px 0px 3px rgba(64, 64, 64, 1);
+            padding: 5px;
+            /*   transform: translate(-50%, 0); */
+            width: fit-content;
+            display: flex;
+            position: absolute;
+            top: 60%;
+        }
+
+        .center-flex {
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin-top: -10px;
+        }
+
+        .rr-change {
+            display: flex;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    &nbsp;
+    <div class="player-card" id="snowy">
+        <table>
+            <tr>
+                <td><img class="player-picture" src="{PlayerCard}">
+                </td>
+                <td class="player-info">
+                    <div class="player-name">{Nick}<span class="tag"> #{Tag}</span></div>
+                    <hr>
+                    <div class="rating-display">
+                        <div class="rating-container"><span class="rating">{Points}</span> <span
+                                class="smaller">RR</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: {Points}%; {ExtraStylesPB}">
+                                <div class="loss-gain"
+                                    style="background-color: {PointsChangeColor}; width: {ChangePercentage}%; {ExtraStyles}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rr-change" style="color: {PointsChangeColor}">{PointsChange}</div>
+                    </div>
+                </td>
+                <td class="rank-display">
+                    <div class="center-flex"><img class="rank-icon"
+                            src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/{TierNumber}/largeicon.png">
+                        <div class="rank-name">{Tier}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
+
+<!-- <script>
+    //Set rr by passing in player card id and RR
+    let grr = 0;
+    setRR("snowy", 20);
+    setRRChange("snowy", -10);
+
+    function setRR(id, rr) {
+        grr = rr;
+        document.querySelector(`#${id} .rating`).innerHTML = rr;
+        document.querySelector(`#${id} .progress-bar`).style.width = `${rr}%`;
+    }
+
+    function setRRChange(id, rr) {
+        if (rr > 0) {
+            document.querySelector(`#${id} .rr-change`).innerHTML = `+${rr}`;
+            setColor("green");
+        } else if (rr < 0) {
+            document.querySelector(`#${id} .rr-change`).innerHTML = `${rr}`;
+            document.querySelector(".loss-gain").style.transform = `translate(100%, 0)`;
+            setColor("red");
+            document.querySelector(".loss-gain").style.borderTopLeftRadius = "0px";
+            document.querySelector(".loss-gain").style.borderBottomLeftRadius = "0px";
+            document.querySelector(".progress-bar").style.borderTopRightRadius = "0px";
+            document.querySelector(".progress-bar").style.borderBottomRightRadius =
+                "0px";
+        } else {
+            document.querySelector(`#${id} .rr-change`).innerHTML = `---`;
+            setColor("white");
+        }
+        document.querySelector(".loss-gain").style.width = `${Math.abs(
+            (rr / grr) * 100
+        )}%`;
+    }
+
+    function setColor(color) {
+        document.documentElement.style.setProperty("--change-color", `${color}`);
+    }
+</script> -->

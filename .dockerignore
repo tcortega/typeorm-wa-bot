@@ -1,0 +1,6 @@
+pgdata/
+node_modules/
+dist/
+.node-persist/
+# _IGNORE_LeviBot/
+logs/

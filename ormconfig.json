@@ -1,9 +1,16 @@
 {
-  "type": "sqlite",
-  "database": "./src/database/database.sqlite",
+  "type": "postgres",
+  "host": "db",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "Levi",
+  "synchronize": true,
+  "logging": false,
   "migrations": ["./src/database/migrations/**.ts"],
   "entities": ["./src/models/**.ts"],
   "cli": {
+    "entitiesDir": "./src/models",
     "migrationsDir": "./src/database/migrations"
   }
 }

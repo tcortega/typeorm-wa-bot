@@ -1,12 +1,22 @@
+pgdata/
 .idea/
 .vscode/
 node_modules/
 build/
 tmp/
+dist/
 temp/
-
+logs/
+_IGNORE**
 # managed
 **.sqlite
 **.data.json
 **.node-persist**
+ecosystem.config.js
+**.backup
+.env
+# end managed
+
+# managed
+**_IGNORE_**
 # end managed
