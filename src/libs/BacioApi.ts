@@ -1,5 +1,6 @@
 import AdmZip from "adm-zip";
 import axios from "axios";
+import CpfUtils from "../utils/CpfUtils";
 import Util from "../utils/Util";
 
 axios.defaults.timeout = 20000;
@@ -19,11 +20,22 @@ class BacioApi {
   }
 
   private async getFakeInfo(retry: boolean = false) {
-    const { data } = await axios.post("https://www.4devs.com.br/ferramentas_online.php", "acao=gerar_pessoa&sexo=I&pontuacao=S&idade=19&cep_estado=ES&txt_qtde=1&cep_cidade=2044");
+    const { data } = await axios.post(
+      "https://www.4devs.com.br/ferramentas_online.php",
+      "acao=gerar_pessoa&sexo=I&pontuacao=S&idade=19&cep_estado=ES&txt_qtde=1&cep_cidade=2044"
+    );
 
     this._telefone = data.celular;
-    this.cpf = this.cpf && !retry ? this.cpf : data.cpf;
     this._email = data.email;
+
+    if (this.cpf.length == 9 && !retry) {
+      this.cpf = CpfUtils.geraCpfValido(this.cpf);
+      return;
+    }
+
+    if (!this.cpf || retry) {
+      this.cpf = data.cpf;
+    }
   }
 
   private async getSmsCode() {

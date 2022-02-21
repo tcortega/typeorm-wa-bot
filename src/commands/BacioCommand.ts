@@ -2,6 +2,8 @@ import { Message } from "@open-wa/wa-automate";
 import { DefineCommand } from "../decorators/DefineCommand";
 import { BacioApi } from "../libs/BacioApi";
 import BaseCommand from "../libs/BaseCommand";
+import CpfUtils from "../utils/CpfUtils";
+import Util from "../utils/Util";
 
 @DefineCommand("bacio", {
   aliases: ["sv", "sorvete"],
@@ -9,7 +11,11 @@ import BaseCommand from "../libs/BaseCommand";
 })
 export default class extends BaseCommand {
   public async exec(msg: Message, args: string[]) {
-    const cpf = /\d/.test(args[args.length - 1]) ? args.pop() : "";
+    const cpf = /\d/.test(args[args.length - 1]) ? args.pop() : /\d/.test(args[0]) ? args.shift() : "";
+
+    if (!CpfUtils.isCpfValido(cpf!)) {
+      return await this.client.reply(msg.chatId, "O cpf escolhido é inválido.", msg.id);
+    }
 
     if (args.length == 0) {
       return await this.client.reply(msg.chatId, "Você tem que enviar seu nome também né porra.", msg.id);
@@ -36,6 +42,10 @@ export default class extends BaseCommand {
       } catch {}
     }
 
-    return await this.client.reply(msg.chatId, "Não consegui gerar porque a API da bacio é uma merda :(. Tenta o comando de novo!", msg.id);
+    return await this.client.reply(
+      msg.chatId,
+      "Não consegui gerar porque a API da bacio é uma merda :(. Tenta o comando de novo!",
+      msg.id
+    );
   }
 }
