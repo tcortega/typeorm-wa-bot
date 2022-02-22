@@ -1,6 +1,7 @@
 import { Client, Message } from "@open-wa/wa-automate";
 import { ICommandOptions } from "../decorators/DefineCommand";
 import MessageHandler from "../handlers/MessageHandler";
+import BaseChatBot from "./OpenAi/BaseChatBot";
 
 export default abstract class BaseCommand implements ICommand {
   public path = __dirname;
@@ -8,7 +9,7 @@ export default abstract class BaseCommand implements ICommand {
 
   public constructor(public client: Client, public id: string, public options: ICommandOptions) {}
 
-  abstract exec(msg: Message, args?: string[]): any;
+  abstract exec(msg: Message, args?: string[], chatBot?: BaseChatBot): any;
 
   protected async processing(msg: Message, warning: string = "*Processando...*"): Promise<void> {
     await this.client.reply(msg.chatId, warning, msg.id);
@@ -30,5 +31,5 @@ interface ICommand {
   options: ICommandOptions;
   path?: string;
   client?: Client;
-  exec(msg: Message, args?: string[]): Promise<any> | any;
+  exec(msg: Message, args?: string[], chatBot?: BaseChatBot): Promise<any> | any;
 }

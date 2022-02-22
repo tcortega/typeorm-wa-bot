@@ -14,4 +14,5 @@ export interface ICommandOptions {
   argsLength?: Number;
   minimumArgs?: Number;
   groupOnly?: boolean;
+  chatBot?: string;
 }

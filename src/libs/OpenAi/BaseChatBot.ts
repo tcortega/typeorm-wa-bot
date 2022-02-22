@@ -1,9 +1,9 @@
 import { Configuration, OpenAIApi } from "openai";
 
-export default abstract class BaseOpenAi {
+export default abstract class BaseChatBot {
   public static openAi = new OpenAIApi(new Configuration({ apiKey: process.env.OPENAI_APIKEY }));
 
-  constructor(private name: string, private prompt: string) {}
+  protected constructor(public name: string, public prompt: string) {}
 
   private prefix = `\n${this.name}`;
   private suffix = `\n\nVoce`;
@@ -11,7 +11,7 @@ export default abstract class BaseOpenAi {
   async askQuestion(question: string) {
     const prompt = `${this.prompt}${this.suffix}: ${question}${this.prefix}: `;
 
-    const { data } = await BaseOpenAi.openAi.createCompletion("text-davinci-001", {
+    const { data } = await BaseChatBot.openAi.createCompletion("text-davinci-001", {
       prompt,
       temperature: 0.7,
       max_tokens: 96,
