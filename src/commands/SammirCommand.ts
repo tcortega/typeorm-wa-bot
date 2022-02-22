@@ -10,6 +10,12 @@ import Sammir from "../libs/OpenAi/Sammir";
 })
 export default class extends BaseCommand {
   public async exec(msg: Message, args: string[], chatBot: Sammir) {
+    const question = args.join(" ");
     
+    const answer = await chatBot.askQuestion(question);
+
+    if (!answer) return await this.client.reply(msg.chatId, "oxi nao sei nada disso nao vai se fudde", msg.id);
+
+    await this.client.reply(msg.chatId, answer, msg.id);
   }
 }
