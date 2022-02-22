@@ -1,9 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 
 export default abstract class BaseOpenAi {
-  public static openAi = new OpenAIApi(
-    new Configuration({ apiKey: process.env.OpenAi_ApiKey })
-  );
+  public static openAi = new OpenAIApi(new Configuration({ apiKey: process.env.OPENAI_APIKEY }));
 
   constructor(private name: string, private prompt: string) {}
 
@@ -13,18 +11,15 @@ export default abstract class BaseOpenAi {
   async askQuestion(question: string) {
     const prompt = `${this.prompt}${this.suffix}: ${question}${this.prefix}: `;
 
-    const { data } = await BaseOpenAi.openAi.createCompletion(
-      "text-davinci-001",
-      {
-        prompt,
-        temperature: 0.7,
-        max_tokens: 96,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-        stop: ["\n"],
-      }
-    );
+    const { data } = await BaseOpenAi.openAi.createCompletion("text-davinci-001", {
+      prompt,
+      temperature: 0.7,
+      max_tokens: 96,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      stop: ["\n"],
+    });
 
     if (!data.choices) return "";
 
