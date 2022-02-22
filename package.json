@@ -29,6 +29,7 @@
     "date-fns": "^2.28.0",
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
+    "openai": "^2.0.4",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "tough-cookie": "^4.0.0",
